@@ -219,3 +219,15 @@ BEGIN
     
     UPDATE productos SET stock=stock-n_stock WHERE id=id_stock;
 END
+
+
+SELECT  students.id AS id_student, students.name AS name, subjects.id AS id_subjects, subjects.name AS name_subject, teachers.id AS teacher_id, teachers.name AS name_teacher,
+students.create_at AS fecha_registro FROM students 
+INNER JOIN classroom ON students.id_classroom = classroom.id
+INNER JOIN grades ON classroom.id_grade = grades.id
+INNER JOIN subjects_grades ON grades.id = subjects_grades.id_grade
+INNER JOIN subjects ON subjects_grades.id_subject = subjects.id
+INNER JOIN imparte ON subjects.id = imparte.id_subject
+INNER JOIN teachers ON imparte.id_teacher = teachers.id
+WHERE students.create_at >= '2023-01-01 00:00:00' AND students.create_at <= '2023-12-31 23:59:59'
+ORDER BY students.id;
